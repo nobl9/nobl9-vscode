@@ -1,0 +1,75 @@
+{
+  "name": "nobl9",
+  "displayName": "nobl9-vscode",
+  "description": "Provides Nobl9 Language Server integration.",
+  "author": "Nobl9",
+  "license": "MIT",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nobl9/nobl9-vscode"
+  },
+  "publisher": "Nobl9",
+  "categories": [],
+  "keywords": [
+    "nobl9"
+  ],
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "activationEvents": [
+    "onLanguage:yaml"
+  ],
+  "main": "./out/extension",
+  "contributes": {
+    "commands": [
+      {
+        "command": "nobl9.sayHello",
+        "title": "Say Hello"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "nobl9.sayHello",
+          "when": "editorLangId == yaml"
+        }
+      ]
+    },
+    "configuration": {
+      "type": "object",
+      "title": "Nobl9 configuration",
+      "properties": {
+        "nobl9.languageServerPath": {
+          "scope": "resource",
+          "type": "string",
+          "default": "nobl9-language-server",
+          "description": "Specify a custom path to the Nobl9 Language Server executable."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -b",
+    "watch": "tsc -b -w",
+    "lint": "eslint",
+    "test": "sh ./scripts/e2e.sh"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.13.0",
+    "@stylistic/eslint-plugin": "^2.9.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20",
+    "@types/vscode": "^1.75.1",
+    "eslint": "^9.13.0",
+    "mocha": "^10.3.0",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.16.0",
+    "@vscode/test-electron": "^2.3.9"
+  },
+  "dependencies": {
+    "glob": "^11.0.0",
+    "vscode-languageclient": "^9.0.1"
+  }
+}
