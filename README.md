@@ -20,7 +20,6 @@ otherwise specified via `nobl9.languageServerPath`.
 This extension contributes the following settings:
 
 * `nobl9.languageServerPath`: Specify a custom path to the Nobl9 Language Server executable.
-* `myExtension.thing`: Set to `blah` to do something.
 
 # Known Issues
 

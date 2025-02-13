@@ -1,9 +1,4 @@
-/* --------------------------------------------------------------------------------------------
- * Copyright (c) Microsoft Corporation. All rights reserved.
- * Licensed under the MIT License. See License.txt in the project root for license information.
- * ------------------------------------------------------------------------------------------ */
-
-import { workspace, ExtensionContext, languages, commands } from 'vscode';
+import { commands, ExtensionContext, languages, workspace } from 'vscode';
 
 import {
 	LanguageClient,
@@ -11,26 +6,68 @@ import {
 	ServerOptions,
 } from 'vscode-languageclient/node';
 
+import * as fs from "fs/promises";
+import { constants } from 'fs';
+import * as path from 'path';
+import { lookupPath } from "./envpath";
+
 let client: LanguageClient;
 
-export function activate(context: ExtensionContext) {
-	const command = 'n9lsp.sayHello';
+const extensionName = "nobl9";
+const languageServerName = "nobl9-language-server";
 
-	const commandHandler = (name: string = 'world') => {
-	  console.log(`Hello ${name}!!!`);
+export async function activate(context: ExtensionContext) {
+	context.subscriptions.push(
+		commands.registerCommand(
+			extensionName + ".restartServer",
+			startLanguageClient
+		)
+	);
+
+	await startLanguageClient();
+}
+
+export function deactivate(): Thenable<void> | undefined {
+	if (!client) {
+		return undefined;
+	}
+	return client.stop();
+}
+
+interface Configuration {
+	languageServer: LanguageServerConfiguration;
+}
+
+interface LanguageServerConfiguration {
+	executable: string;
+	logLevel: string;
+	logFilePath: string;
+}
+
+async function startLanguageClient() {
+	client = await buildLanguageClient();
+	await client.start();
+}
+
+async function buildLanguageClient(): Promise<LanguageClient> {
+	const config = loadConfiguration();
+	if (!config.languageServer.executable) {
+		config.languageServer.executable = await findLanguageServerExecutable();
 	};
-  
-	context.subscriptions.push(commands.registerCommand(command, commandHandler));
 
-
-	// The server is implemented in node
-	const serverModule = "/home/mh/go/bin/n9lsp";
+	const args = [];
+	if (config.languageServer.logLevel) {
+		args.push(`-logLevel=${config.languageServer.logLevel}`);
+	}
+	if (config.languageServer.logFilePath) {
+		args.push(`-logFilePath=${config.languageServer.logFilePath}`);
+	}
 
 	// If the extension is launched in debug mode then the debug server options are used
 	// Otherwise the run options are used
 	const serverOptions: ServerOptions = {
-		run: { command: serverModule, args: ["-logLevel=TRACE"] },
-		debug: { command: serverModule, args: ["-logLevel=TRACE"] },
+		run: { command: config.languageServer.executable, args: args },
+		debug: { command: config.languageServer.executable, args: args },
 	};
 
 	// Options to control the language client
@@ -48,9 +85,9 @@ export function activate(context: ExtensionContext) {
 		}
 	};
 
-	// Create the language client and start the client.
+	// Create the language client.
 	client = new LanguageClient(
-		'n9lsp',
+		languageServerName,
 		'Nobl9 Language Server',
 		serverOptions,
 		clientOptions
@@ -60,13 +97,56 @@ export function activate(context: ExtensionContext) {
 		wordPattern: /("(?:[^\\\"]*(?:\\.)?)*"?)|[^\s{}\[\],:]+/
 	});
 
-	// Start the client. This will also launch the server
-	client.start();
+	return client;
 }
 
-export function deactivate(): Thenable<void> | undefined {
-	if (!client) {
-		return undefined;
+function loadConfiguration(): Configuration {
+	const c = workspace.getConfiguration(extensionName);
+	return {
+		languageServer: {
+			executable: c.get("languageServer.executable") || "",
+			logLevel: c.get("languageServer.logLevel") || "error",
+			logFilePath: c.get("languageServer.logFilePath") || "",
+		}
+	};
+}
+
+const languageServerExecutableLocations = [
+	path.join(process.env.GOBIN ?? "", languageServerName),
+	path.join(process.env.GOBIN ?? "", languageServerName + ".exe"),
+	path.join(process.env.GOPATH ?? "", "bin", languageServerName),
+	path.join(process.env.GOPATH ?? "", "bin", languageServerName + ".exe"),
+	path.join(process.env.GOROOT || "", "bin", languageServerName),
+	path.join(process.env.GOROOT || "", "bin", languageServerName + ".exe"),
+	path.join(process.env.HOME || "", "bin", languageServerName),
+	path.join(process.env.HOME || "", "bin", languageServerName + ".exe"),
+	path.join(process.env.HOME || "", "go", "bin", languageServerName),
+	path.join(process.env.HOME || "", "go", "bin", languageServerName + ".exe"),
+	"/usr/local/bin/" + languageServerName,
+	"/usr/bin/" + languageServerName,
+	"/usr/local/go/bin/" + languageServerName,
+	"/usr/local/share/go/bin/" + languageServerName,
+	"/usr/share/go/bin/" + languageServerName,
+];
+
+async function findLanguageServerExecutable(): Promise<string> {
+	const linuxName = await lookupPath(languageServerName);
+	if (linuxName) {
+		return linuxName;
 	}
-	return client.stop();
+	const windowsName = await lookupPath(languageServerName + ".exe");
+	if (windowsName) {
+		return windowsName;
+	}
+	for (const exe of languageServerExecutableLocations) {
+		try {
+			await fs.access(exe, constants.X_OK);
+			return exe;
+		} catch {
+			// ignore
+		}
+	}
+	throw new Error(
+		`Could not find ${languageServerName} executable in path or in ${languageServerExecutableLocations.join(", ")}`
+	);
 }

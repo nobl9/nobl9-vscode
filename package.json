@@ -22,29 +22,35 @@
   ],
   "main": "./out/extension",
   "contributes": {
-    "commands": [
-      {
-        "command": "nobl9.sayHello",
-        "title": "Say Hello"
-      }
-    ],
-    "menus": {
-      "commandPalette": [
-        {
-          "command": "nobl9.sayHello",
-          "when": "editorLangId == yaml"
-        }
-      ]
+    "commands": {
+      "command": "nobl9.restartServer",
+      "title": "Nobl9: Restart Language Server",
+      "when": "editorLangId == yaml"
     },
     "configuration": {
       "type": "object",
-      "title": "Nobl9 configuration",
+      "title": "Nobl9 extension configuration",
       "properties": {
-        "nobl9.languageServerPath": {
-          "scope": "resource",
+        "nobl9.languageServer.executable": {
           "type": "string",
           "default": "nobl9-language-server",
-          "description": "Specify a custom path to the Nobl9 Language Server executable."
+          "description": "Specify a custom path or a name available in the path to the Nobl9 Language Server executable."
+        },
+        "nobl9.languageServer.logLevel": {
+          "type": "string",
+          "default": "error",
+          "enum": [
+            "trace",
+            "debug",
+            "info",
+            "warn",
+            "error"
+          ],
+          "description": "Specify log level for the Nobl9 Language Server to use."
+        },
+        "nobl9.languageServer.logFilePath": {
+          "type": "string",
+          "description": "Specify log file path for the Nobl9 Language Server to save the logs in."
         }
       }
     }
