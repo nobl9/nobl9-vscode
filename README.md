@@ -26,3 +26,7 @@ This extension contributes the following settings:
 Nobl9 Language Server is currently in experimental stage, please report any bugs encountered
 which are not directly related to the VS Code extension in the 
 [Language Server's repository](https://github.com/nobl9/nobl9-language-server).
+
+# Changelog
+
+TODO

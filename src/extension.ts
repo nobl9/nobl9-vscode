@@ -51,7 +51,14 @@ async function startLanguageClient() {
 
 async function buildLanguageClient(): Promise<LanguageClient> {
 	const config = loadConfiguration();
-	if (!config.languageServer.executable) {
+	if (config.languageServer.executable) {
+		const executablePath = await lookupPath(config.languageServer.executable);
+		if (!executablePath) {
+			throw Error(`${config.languageServer.executable} must be executable and available in the PATH. ` +
+				"See https://github.com/nobl9/nobl9-language-server?tab=readme-ov-file#install " +
+				"for more details on how to install the server.");
+		}
+	} else {
 		config.languageServer.executable = await findLanguageServerExecutable();
 	};
 
@@ -94,7 +101,7 @@ async function buildLanguageClient(): Promise<LanguageClient> {
 	);
 
 	languages.setLanguageConfiguration('yaml', {
-		wordPattern: /("(?:[^\\\"]*(?:\\.)?)*"?)|[^\s{}\[\],:]+/
+		wordPattern: /("(?:[^\\"]*(?:\\.)?)*"?)|[^\s{}[\],:]+/
 	});
 
 	return client;
@@ -147,6 +154,6 @@ async function findLanguageServerExecutable(): Promise<string> {
 		}
 	}
 	throw new Error(
-		`Could not find ${languageServerName} executable in path or in ${languageServerExecutableLocations.join(", ")}`
+		`Could not find ${languageServerName} executable in PATH or in ${languageServerExecutableLocations.join(", ")}`
 	);
 }

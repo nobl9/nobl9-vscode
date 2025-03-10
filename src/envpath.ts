@@ -18,15 +18,15 @@ export async function lookupPath(command: string): Promise<string | undefined> {
     return bins.find(bin => !!bin);
 }
 
-const isFilepath = (cmd: string): string | undefined => {
-    return cmd.includes(path.sep) ? path.resolve(cmd) : undefined;
-};
-
-const isExecutable = async (abspath: string): Promise<string | undefined> => {
+export async function isExecutable(abspath: string): Promise<string | undefined> {
     const envvars = process.env;
     const exts = (envvars.PATHEXT || '').split(path.delimiter).concat('');
     const bins = await Promise.all(exts.map(ext => access(abspath + ext)));
     return bins.find(bin => !!bin);
+};
+
+const isFilepath = (cmd: string): string | undefined => {
+    return cmd.includes(path.sep) ? path.resolve(cmd) : undefined;
 };
 
 const access = (fpath: string): Promise<string | undefined> => {

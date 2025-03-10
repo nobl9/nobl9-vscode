@@ -1,9 +1,10 @@
 {
   "name": "nobl9",
-  "displayName": "nobl9-vscode",
+  "displayName": "Nobl9",
   "description": "Provides Nobl9 Language Server integration.",
   "author": "Nobl9",
   "license": "MIT",
+  "icon": "./assets/icon.png",
   "version": "0.1.0",
   "repository": {
     "type": "git",
@@ -33,7 +34,6 @@
       "properties": {
         "nobl9.languageServer.executable": {
           "type": "string",
-          "default": "nobl9-language-server",
           "description": "Specify a custom path or a name available in the path to the Nobl9 Language Server executable."
         },
         "nobl9.languageServer.logLevel": {
@@ -56,11 +56,15 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -b",
-    "watch": "tsc -b -w",
+    "compile": "tsc -b && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
     "lint": "eslint",
-    "test": "sh ./scripts/e2e.sh"
+    "pretest": "npm run compile",
+    "test": "vscode-test",
+    "vscode:prepublish": "npm run package",
+    "package": "npm run check-types && node esbuild.js --production"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
@@ -68,11 +72,14 @@
     "@types/mocha": "^10.0.6",
     "@types/node": "^20",
     "@types/vscode": "^1.75.1",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.3.9",
+    "esbuild": "^0.25.1",
     "eslint": "^9.13.0",
     "mocha": "^10.3.0",
+    "npm-run-all": "^4.1.5",
     "typescript": "^5.7.2",
-    "typescript-eslint": "^8.16.0",
-    "@vscode/test-electron": "^2.3.9"
+    "typescript-eslint": "^8.16.0"
   },
   "dependencies": {
     "glob": "^11.0.0",

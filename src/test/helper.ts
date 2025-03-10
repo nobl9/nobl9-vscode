@@ -1,8 +1,3 @@
-/* --------------------------------------------------------------------------------------------
- * Copyright (c) Microsoft Corporation. All rights reserved.
- * Licensed under the MIT License. See License.txt in the project root for license information.
- * ------------------------------------------------------------------------------------------ */
-
 import * as vscode from 'vscode';
 import * as path from 'path';
 
@@ -12,11 +7,11 @@ export let documentEol: string;
 export let platformEol: string;
 
 /**
- * Activates the vscode.lsp-sample extension
+ * Activates the nobl9.nobl9 extension
  */
 export async function activate(docUri: vscode.Uri) {
 	// The extensionId is `publisher.name` from package.json
-	const ext = vscode.extensions.getExtension('vscode-samples.lsp-sample')!;
+	const ext = vscode.extensions.getExtension('nobl9.nobl9')!;
 	await ext.activate();
 	try {
 		doc = await vscode.workspace.openTextDocument(docUri);
@@ -32,8 +27,9 @@ async function sleep(ms: number) {
 }
 
 export const getDocPath = (p: string) => {
-	return path.resolve(__dirname, '../../testFixture', p);
+	return path.resolve(__dirname, '../../src/test/test-fixtures', p);
 };
+
 export const getDocUri = (p: string) => {
 	return vscode.Uri.file(getDocPath(p));
 };

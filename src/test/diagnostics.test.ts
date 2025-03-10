@@ -1,20 +1,21 @@
-/* --------------------------------------------------------------------------------------------
- * Copyright (c) Microsoft Corporation. All rights reserved.
- * Licensed under the MIT License. See License.txt in the project root for license information.
- * ------------------------------------------------------------------------------------------ */
-
 import * as vscode from 'vscode';
 import * as assert from 'assert';
 import { getDocUri, activate } from './helper';
 
 suite('Should get diagnostics', () => {
-	const docUri = getDocUri('diagnostics.txt');
+	const docUri = getDocUri('diagnostics.yaml');
 
-	test('Diagnoses uppercase texts', async () => {
+	test('Diagnoses metadata.name', async () => {
 		await testDiagnostics(docUri, [
-			{ message: 'ANY is all uppercase.', range: toRange(0, 0, 0, 3), severity: vscode.DiagnosticSeverity.Warning, source: 'ex' },
-			{ message: 'ANY is all uppercase.', range: toRange(0, 14, 0, 17), severity: vscode.DiagnosticSeverity.Warning, source: 'ex' },
-			{ message: 'OS is all uppercase.', range: toRange(0, 18, 0, 20), severity: vscode.DiagnosticSeverity.Warning, source: 'ex' }
+			{
+				message: "string must match regular expression: " +
+					"'^[a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?$' (e.g. 'my-name', '123-abc'); " +
+					"an RFC-1123 compliant label name must consist of lower case alphanumeric characters " +
+					"or '-', and must start and end with an alphanumeric character",
+				range: toRange(3, 8, 3, 22),
+				severity: vscode.DiagnosticSeverity.Error,
+				source: 'nobl9-langauge-server',
+			},
 		]);
 	});
 });
