@@ -21,7 +21,7 @@
   "activationEvents": [
     "onLanguage:yaml"
   ],
-  "main": "./out/extension",
+  "main": "./dist/extension",
   "contributes": {
     "commands": {
       "command": "nobl9.restartServer",
@@ -61,10 +61,10 @@
     "watch:esbuild": "node esbuild.js --watch",
     "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
     "lint": "eslint",
-    "pretest": "npm run compile",
+    "pretest": "yarn run compile",
     "test": "vscode-test",
-    "vscode:prepublish": "npm run package",
-    "package": "npm run check-types && node esbuild.js --production"
+    "vscode:prepublish": "yarn run package",
+    "package": "yarn run check-types && node esbuild.js --production"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
