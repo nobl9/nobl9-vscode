@@ -9,7 +9,7 @@ const isWindows = /^win/i.test(process.platform);
 
 export async function lookupPath(command: string): Promise<string | undefined> {
     const directpath = isFilepath(command);
-    if (directpath) { 
+    if (directpath) {
         return isExecutable(directpath);
     };
 
