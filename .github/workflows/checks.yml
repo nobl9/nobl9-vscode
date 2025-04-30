@@ -8,7 +8,7 @@ on:
       - main
 jobs:
   test:
-    name: Run VSCode tests
+    name: Run checks
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
@@ -20,6 +20,8 @@ jobs:
           cache: "yarn"
       - name: Install dependencies
         run: yarn install --immutable
+      - name: Run linter
+        run: yarn run lint
       - name: Install nobl9-language-server
         run: |
           set -o pipefail
