@@ -5,8 +5,5 @@ export default defineConfig({
 	mocha: {
 		timeout: 10000,
 	},
-	useInstallation: {
-		fromMachine: true,
-		fromPath: process.env.VSCODE_TESTCLI_VSCODE_PATH || "code",
-	},
+	skipExtensionDependencies: true,
 });
