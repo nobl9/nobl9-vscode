@@ -21,4 +21,6 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
       - name: Run tests
-        run: yarn run test
+        uses: coactions/setup-xvfb@v1
+        with:
+          run: yarn run test
