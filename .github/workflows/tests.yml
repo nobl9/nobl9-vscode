@@ -8,7 +8,7 @@ on:
       - main
 jobs:
   test:
-    name: Run unit tests
+    name: Run VSCode tests
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
