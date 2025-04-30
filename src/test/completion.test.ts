@@ -6,7 +6,7 @@ suite('Should do completion', () => {
 	const docUri = getDocUri('completion.yaml');
 
 	test('Completes apiVersion', async () => {
-		await testCompletion(docUri, new vscode.Position(0, 13), {
+		await testCompletion(docUri, new vscode.Position(0, 12), {
 			items: [
 				{ label: 'n9/v1alpha', kind: vscode.CompletionItemKind.Value },
 			]

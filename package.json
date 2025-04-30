@@ -29,8 +29,7 @@
       "when": "editorLangId == yaml"
     },
     "configuration": {
-      "type": "object",
-      "title": "Nobl9 extension configuration",
+      "title": "Nobl9",
       "properties": {
         "nobl9.languageServer.executable": {
           "type": "string",
@@ -56,15 +55,15 @@
     }
   },
   "scripts": {
-    "compile": "tsc -b && node esbuild.js",
+    "compile": "tsc -b && node esbuild.mjs",
     "watch": "npm-run-all -p watch:*",
-    "watch:esbuild": "node esbuild.js --watch",
+    "watch:esbuild": "node esbuild.mjs --watch",
     "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
     "lint": "eslint",
     "pretest": "yarn run compile",
-    "test": "vscode-test",
+    "test": "NOBL9_LANGUAGE_SERVER_NO_CONFIG_FILE='true' NOBL9_LANGUAGE_SERVER_CLIENT_ID='fake' NOBL9_LANGUAGE_SERVER_CLIENT_SECRET='fake' vscode-test",
     "vscode:prepublish": "yarn run package",
-    "package": "yarn run check-types && node esbuild.js --production"
+    "package": "yarn run check-types && node esbuild.mjs --production"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",

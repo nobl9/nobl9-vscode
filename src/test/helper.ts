@@ -11,6 +11,7 @@ export let platformEol: string;
  */
 export async function activate(docUri: vscode.Uri) {
 	// The extensionId is `publisher.name` from package.json
+	console.log('Activating nobl9.nobl9 extension');
 	const ext = vscode.extensions.getExtension('nobl9.nobl9')!;
 	await ext.activate();
 	try {

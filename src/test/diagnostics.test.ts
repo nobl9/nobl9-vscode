@@ -9,12 +9,12 @@ suite('Should get diagnostics', () => {
 		await testDiagnostics(docUri, [
 			{
 				message: "string must match regular expression: " +
-					"'^[a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?$' (e.g. 'my-name', '123-abc'); " +
+					"'^[a-z0-9]([-a-z0-9]*[a-z0-9])?$' (e.g. 'my-name', '123-abc'); " +
 					"an RFC-1123 compliant label name must consist of lower case alphanumeric characters " +
 					"or '-', and must start and end with an alphanumeric character",
 				range: toRange(3, 8, 3, 22),
 				severity: vscode.DiagnosticSeverity.Error,
-				source: 'nobl9-langauge-server',
+				source: 'nobl9-language-server',
 			},
 		]);
 	});
@@ -35,8 +35,8 @@ async function testDiagnostics(docUri: vscode.Uri, expectedDiagnostics: vscode.D
 
 	expectedDiagnostics.forEach((expectedDiagnostic, i) => {
 		const actualDiagnostic = actualDiagnostics[i];
-		assert.equal(actualDiagnostic.message, expectedDiagnostic.message);
+		assert.strictEqual(actualDiagnostic.message, expectedDiagnostic.message);
 		assert.deepEqual(actualDiagnostic.range, expectedDiagnostic.range);
-		assert.equal(actualDiagnostic.severity, expectedDiagnostic.severity);
+		assert.strictEqual(actualDiagnostic.severity, expectedDiagnostic.severity);
 	});
 }

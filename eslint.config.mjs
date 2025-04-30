@@ -7,9 +7,15 @@
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import stylistic from '@stylistic/eslint-plugin';
+import globals from 'globals';
 
 export default tseslint.config(
 	{
+		languageOptions: {
+			globals: {
+				...globals.node,
+			},
+		},
 		ignores: [
 			'.vscode-test/**',
 			'dist/**',

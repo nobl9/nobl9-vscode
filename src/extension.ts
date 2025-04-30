@@ -64,10 +64,10 @@ async function buildLanguageClient(): Promise<LanguageClient> {
 
 	const args = [];
 	if (config.languageServer.logLevel) {
-		args.push(`-logLevel=${config.languageServer.logLevel}`);
+		args.push(`-logLevel=TRACE`);
 	}
 	if (config.languageServer.logFilePath) {
-		args.push(`-logFilePath=${config.languageServer.logFilePath}`);
+		args.push(`-logFilePath=/home/mh/nobl9/nobl9-vscode/this.log`);
 	}
 
 	// If the extension is launched in debug mode then the debug server options are used
