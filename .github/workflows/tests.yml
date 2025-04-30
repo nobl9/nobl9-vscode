@@ -17,8 +17,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'yarn'
+          cache: "yarn"
       - name: Install dependencies
         run: yarn install --immutable
+      - name: Install nobl9-language-server
+        run: |
+          set -o pipefail
+          curl -fsSL https://raw.githubusercontent.com/nobl9/nobl9-language-server/main/install.bash | bash
       - name: Run tests
-        run: yarn run test
+        uses: coactions/setup-xvfb@v1
+        with:
+          run: yarn run test
