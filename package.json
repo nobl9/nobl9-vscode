@@ -16,7 +16,7 @@
     "nobl9"
   ],
   "engines": {
-    "vscode": "^1.75.0"
+    "vscode": "1.99.3"
   },
   "activationEvents": [
     "onLanguage:yaml"
@@ -66,22 +66,22 @@
     "package": "yarn run check-types && node esbuild.mjs --production"
   },
   "devDependencies": {
-    "@eslint/js": "^9.13.0",
-    "@stylistic/eslint-plugin": "^2.9.0",
-    "@types/mocha": "^10.0.6",
-    "@types/node": "^20",
-    "@types/vscode": "^1.75.1",
-    "@vscode/test-cli": "^0.0.10",
-    "@vscode/test-electron": "^2.3.9",
-    "esbuild": "^0.25.1",
-    "eslint": "^9.13.0",
-    "mocha": "^10.3.0",
-    "npm-run-all": "^4.1.5",
-    "typescript": "^5.7.2",
-    "typescript-eslint": "^8.16.0"
+    "@eslint/js": "9.22.0",
+    "@stylistic/eslint-plugin": "2.13.0",
+    "@types/mocha": "10.0.10",
+    "@types/node": "20.17.24",
+    "@types/vscode": "1.98.0",
+    "@vscode/test-cli": "0.0.10",
+    "@vscode/test-electron": "2.4.1",
+    "esbuild": "0.25.1",
+    "eslint": "9.22.0",
+    "mocha": "10.8.2",
+    "npm-run-all": "4.1.5",
+    "typescript": "5.8.2",
+    "typescript-eslint": "8.26.1"
   },
   "dependencies": {
-    "glob": "^11.0.0",
-    "vscode-languageclient": "^9.0.1"
+    "glob": "11.0.1",
+    "vscode-languageclient": "9.0.1"
   }
 }
