@@ -3,6 +3,14 @@
 This document describes the intricacies of Nobl9 VSCode extension development workflow.
 If you see anything missing, feel free to contribute :)
 
+## Debugging
+
+1. Launch the project in VSCode, press Ctrl+Shift+B,
+this will build the project and watch for changes.
+2. Press Ctrl+Shift+D to open _Run and Debug_ screen.
+3. Select and press _Run Extension_ from the dropdown at the left top corner.
+4. New VSCode window should be spawned with the extension loaded inside.
+
 ## Pull requests
 
 [Pull request template](../.github/pull_request_template.md)
