@@ -57,5 +57,8 @@ jobs:
           echo "$env:USERPROFILE\.cargo\bin" | Out-File -Append -FilePath $env:GITHUB_PATH
       - name: Run tests
         uses: coactions/setup-xvfb@v1
+        env:
+          NOBL9_LANGUAGE_SERVER_CLIENT_ID: ${{ vars.NOBL9_LANGUAGE_SERVER_CLIENT_ID }}
+          NOBL9_LANGUAGE_SERVER_CLIENT_SECRET: ${{ secrets.NOBL9_LANGUAGE_SERVER_CLIENT_SECRET }}
         with:
           run: yarn run test

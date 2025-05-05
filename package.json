@@ -61,7 +61,7 @@
     "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
     "lint": "eslint -c eslint.config.mjs --ext .ts src",
     "pretest": "yarn run compile",
-    "test": "NOBL9_LANGUAGE_SERVER_NO_CONFIG_FILE='true' NOBL9_LANGUAGE_SERVER_CLIENT_ID='fake' NOBL9_LANGUAGE_SERVER_CLIENT_SECRET='fake' vscode-test",
+    "test": "vscode-test",
     "vscode:prepublish": "yarn run package",
     "package": "yarn run check-types && node esbuild.mjs --production"
   },
