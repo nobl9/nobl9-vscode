@@ -30,9 +30,8 @@ jobs:
         uses: cygwin/cygwin-install-action@master
       - name: Install nobl9-language-server
         run: |
-          echo "$PROGRAM_INSTALL_DIR" >> $GITHUB_ENV
-          curl -fsSL https://raw.githubusercontent.com/nobl9/nobl9-language-server/main/install.bash | bash
-        shell: bash -eo pipefail '{0}'
+          bash -eo pipefail -c 'echo "$PROGRAM_INSTALL_DIR" >> $GITHUB_PATH'
+          bash -eo pipefail -c 'curl -fsSL https://raw.githubusercontent.com/nobl9/nobl9-language-server/main/install.bash | bash'
         env:
           PROGRAM_INSTALL_DIR: /usr/local/bin
       - name: Run tests
