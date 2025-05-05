@@ -31,20 +31,20 @@ jobs:
         id: get_version
         shell: bash
         run: |
-          VERSION=$(curl -s https://api.github.com/repos/nobl9/nobl9-language-server/releases/latest | jq -r .tag_name | sed 's/^v//')
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          VERSION=$(curl -fsSL https://api.github.com/repos/nobl9/nobl9-language-server/releases/latest | jq -r .tag_name | sed 's/^v//')
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
       - name: Install nobl9-language-server (Linux)
         if: runner.os == 'Linux'
         run: |
           VERSION=${{ steps.get_version.outputs.version }}
-          curl -fsSL -o nobl9-language-server "$NOBL9_LS_BASE_URL/v${VERSION}/nobl9-language-server-${VERSION}-linux-amd64"
+          curl -fsSL -o nobl9-language-server "${NOBL9_LS_BASE_URL}/v${VERSION}/nobl9-language-server-${VERSION}-linux-amd64"
           chmod +x nobl9-language-server
           sudo mv nobl9-language-server /usr/local/bin/
       - name: Install nobl9-language-server (macOS)
         if: runner.os == 'macOS'
         run: |
           VERSION=${{ steps.get_version.outputs.version }}
-          curl -fsSL -o nobl9-language-server "$NOBL9_LS_BASE_URL/v${VERSION}/nobl9-language-server-${VERSION}-darwin-amd64"
+          curl -fsSL -o nobl9-language-server "${NOBL9_LS_BASE_URL}/v${VERSION}/nobl9-language-server-${VERSION}-darwin-amd64"
           chmod +x nobl9-language-server
           sudo mv nobl9-language-server /usr/local/bin/
       - name: Install nobl9-language-server (Windows)
