@@ -3,13 +3,34 @@
 This document describes the intricacies of Nobl9 VSCode extension development workflow.
 If you see anything missing, feel free to contribute :)
 
-## Debugging
+## Running extension
+
+### In the project
 
 1. Launch the project in VSCode, press Ctrl+Shift+B,
 this will build the project and watch for changes.
 2. Press Ctrl+Shift+D to open _Run and Debug_ screen.
 3. Select and press _Run Extension_ from the dropdown at the left top corner.
 4. New VSCode window should be spawned with the extension loaded inside.
+
+### Packaging
+
+Instead of running the extension from this project you can also choose to
+package it and use it in any of the VSCode projects you want to or send the
+packaged extension to someone else.
+
+Run:
+
+```bash
+yarn run package
+# OR:
+yarn run vsce package
+```
+
+This will first bundle the extension with `esbuild` and create a minified
+JS file under `./dist/extension.js`.
+This bundled file is than packaged by [vsce](https://github.com/microsoft/vscode-vsce)
+which is the VSCode extension manager.
 
 ## Pull requests
 
@@ -39,6 +60,11 @@ run via [vscode-test](https://github.com/microsoft/vscode-test) library.
 These tests spawn a headless VSCode instance and run on it.
 For more details read
 [this](https://code.visualstudio.com/api/working-with-extensions/testing-extension).
+
+The headless VSCode instance is downloaded automatically
+by the testing library. If you're on an OS which might have problems with
+required, linked libraries, there's a Nix shell and direnv integration
+ready to use.
 
 ## Releases
 

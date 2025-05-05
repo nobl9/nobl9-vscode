@@ -21,6 +21,14 @@
   "activationEvents": [
     "onLanguage:yaml"
   ],
+  "files":[
+    "dist/extension.js",
+    "package.json",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "assets"
+  ],
   "main": "./dist/extension",
   "contributes": {
     "commands": {
@@ -59,10 +67,11 @@
     "watch": "npm-run-all -p watch:*",
     "watch:esbuild": "node esbuild.mjs --watch",
     "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
-    "pretest": "yarn run compile",
     "test": "vscode-test",
-    "vscode:prepublish": "yarn run package",
-    "package": "yarn run check-types && node esbuild.mjs --production",
+    "package": "vsce package",
+    "vscode:prepublish": "yarn run bundle",
+    "bundle": "yarn run check && node esbuild.mjs --production",
+    "publish": "vsce publish",
     "check": "npm-run-all -p check:*",
     "check:spell": "cspell --no-progress '**/**'",
     "check:markdown": "markdownlint '**/*.md' --ignore node_modules",
@@ -71,20 +80,16 @@
     "format-cspell-config": "node ./scripts/format-cspell-config.mjs"
   },
   "devDependencies": {
-    "@eslint/js": "9.26.0",
-    "@stylistic/eslint-plugin": "4.2.0",
-    "@types/mocha": "10.0.10",
-    "@types/node": "22.15.3",
-    "@types/vscode": "1.99.1",
+    "@stylistic/eslint-plugin": "^4.2.0",
     "@vscode/test-cli": "0.0.10",
-    "@vscode/test-electron": "2.5.2",
+    "@vscode/test-electron": "^2.5.2",
+    "@vscode/vsce": "^3.3.2",
     "cspell": "^9.0.0",
     "esbuild": "0.25.3",
     "eslint": "9.26.0",
     "markdownlint-cli": "^0.44.0",
-    "mocha": "11.2.2",
     "npm-run-all": "^4.1.5",
-    "typescript": "5.8.3",
+    "typescript": "^5.8.3",
     "typescript-eslint": "8.31.1"
   },
   "dependencies": {
