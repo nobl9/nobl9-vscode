@@ -25,7 +25,10 @@ jobs:
         run: yarn install --immutable
       - name: Run linter
         run: yarn run lint
-      - name: Install nobl9-language-server
+      - name: Install Cygwin (Windows)
+        if: runner.os == 'Windows'
+        uses: cygwin/cygwin-install-action@master
+      - name: Install nobl9-language-server (Linux/macOS)
         run: |
           set -o pipefail
           curl -fsSL https://raw.githubusercontent.com/nobl9/nobl9-language-server/main/install.bash | bash
