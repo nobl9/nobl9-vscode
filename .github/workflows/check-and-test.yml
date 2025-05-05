@@ -1,4 +1,10 @@
-name: Tests
+name: Check and test
+description: |
+  This workflow runs checks and tests on the codebase.
+  It is triggered on push and pull request events to the main branch.
+  The workflow consists of two jobs: `check` and `test`.
+  The `check` job runs linting and other checks,
+  while the `test` job runs VSCode integration tests on different operating systems.
 on:
   push:
     branches:
@@ -6,15 +12,10 @@ on:
   pull_request:
     branches:
       - main
-env:
-  NOBL9_LS_BASE_URL: https://github.com/nobl9/nobl9-language-server/releases/download
 jobs:
-  test:
+  check:
     name: Run checks
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
       - name: Check out code
         uses: actions/checkout@v4
@@ -27,6 +28,25 @@ jobs:
         run: yarn install --immutable
       - name: Run linter
         run: yarn run check
+  test:
+    name: Run tests
+    needs: check
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      NOBL9_LS_BASE_URL: https://github.com/nobl9/nobl9-language-server/releases/download
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "yarn"
+      - name: Install dependencies
+        run: yarn install --immutable
       - name: Get latest nobl9-language-server version
         id: get_version
         shell: bash
@@ -62,3 +82,4 @@ jobs:
           NOBL9_LANGUAGE_SERVER_CLIENT_SECRET: ${{ secrets.NOBL9_LANGUAGE_SERVER_CLIENT_SECRET }}
         with:
           run: yarn run test
+
