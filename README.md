@@ -12,21 +12,24 @@ Nobl9 Visual Stuido Code extension provides an integration with
 
 # Requirements
 
-Nobl9 language server has to be installed and either available in the path or
-otherwise specified via `nobl9.languageServerPath`.
+[Nobl9 language server](https://github.com/nobl9/nobl9-language-server)
+executable has to be installed and either available in the path or
+specified via `nobl9.languageServerPath`.
 
 # Extension Settings
 
 This extension contributes the following settings:
 
-* `nobl9.languageServerPath`: Specify a custom path to the Nobl9 Language Server executable.
+* `nobl9.languageServer.executable`: Specify a custom path to the Nobl9 Language Server executable.
+* `nobl9.languageServer.logLevel`: Specify log level for the Nobl9 Language Server to use.
+* `nobl9.languageServer.logFilePath`: Specify log file path for the Nobl9 Language Server to save the logs in.
 
 # Known Issues
 
 Nobl9 Language Server is currently in experimental stage, please report any bugs encountered
-which are not directly related to the VS Code extension in the 
+which are not directly related to the Visual Studio Code extension in the
 [Language Server's repository](https://github.com/nobl9/nobl9-language-server).
 
 # Changelog
 
-TODO
+Refer to [Changelog](./CHANGELOG.md) for more details.

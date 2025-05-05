@@ -79,13 +79,11 @@ async function buildLanguageClient(): Promise<LanguageClient> {
 
 	// Options to control the language client
 	const clientOptions: LanguageClientOptions = {
-		// Register the server for plain text documents
 		documentSelector: [
 			{ scheme: 'file', language: 'yaml' },
 			{ scheme: 'untitled', language: 'yaml' }
 		],
 		synchronize: {
-			// Notify the server about file changes to '.clientrc files contained in the workspace
 			fileEvents: [
 				workspace.createFileSystemWatcher('**/*.?(e)y?(a)ml')
 			]
