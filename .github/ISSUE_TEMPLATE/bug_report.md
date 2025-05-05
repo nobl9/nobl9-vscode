@@ -7,6 +7,12 @@ assignees: ''
 
 ---
 
+> [!IMPORTANT]
+> nobl9-vscode is a thin wrapper around
+> [nobl9-language-server](https://github.com/nobl9/nobl9-language-server),
+> If you're having issues with the LSP features,
+> please report the bug in the server's repository.
+
 **Describe the bug**
 A clear and concise description of what the bug is.
 

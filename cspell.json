@@ -1,0 +1,38 @@
+{
+  "allowCompoundWords": true,
+  "language": "en_US",
+  "dictionaries": [
+    "companies",
+    "misc",
+    "softwareTerms",
+    "go",
+    "bash",
+    "typescript",
+    "node",
+    "npm"
+  ],
+  "ignoreRegExpList": [
+    "/\\|\\s+[T|G]{2,}\\s+\\|/g",
+    "/https?:\\/\\/.*/g",
+    "/github.*/g",
+    "/nolint.*/g",
+    "/nosec.*/g"
+  ],
+  "ignorePaths": [
+    "**/*.lock",
+    "**/node_modules/**",
+    "cspell.json",
+    "CODEOWNERS",
+    "shell.nix",
+    "dist/**",
+    "out/**",
+    ".envrc"
+  ],
+  "words": [
+    "fpath",
+    "gobin",
+    "gopath",
+    "goroot",
+    "nobl"
+  ]
+}

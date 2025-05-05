@@ -1,4 +1,11 @@
-name: Tests
+name: Check and test
+description: |
+  This workflow runs checks and tests on the codebase.
+  It is triggered on push and pull request events to the main branch.
+  The workflow consists of two main jobs: `check` and `test`.
+  The `check` job runs linting and other checks,
+  while the `test` job runs VSCode integration tests on different operating systems.
+  `get-version` job fetches the latest version of the nobl9-language-server once for `test` job.
 on:
   push:
     branches:
@@ -6,15 +13,10 @@ on:
   pull_request:
     branches:
       - main
-env:
-  NOBL9_LS_BASE_URL: https://github.com/nobl9/nobl9-language-server/releases/download
 jobs:
-  test:
+  check:
     name: Run checks
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
       - name: Check out code
         uses: actions/checkout@v4
@@ -26,39 +28,73 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
       - name: Run linter
-        run: yarn run lint
-      - name: Get latest nobl9-language-server version
+        run: yarn run check
+  get-version:
+    name: Get latest nobl9-language-server version
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get_version.outputs.version }}
+    steps:
+      - name: Get latest version
         id: get_version
         shell: bash
         run: |
           VERSION=$(curl -fsSL https://api.github.com/repos/nobl9/nobl9-language-server/releases/latest | jq -r .tag_name | sed 's/^v//')
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+  test:
+    name: Run tests
+    needs: [check, get-version]
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      NOBL9_LS_BASE_URL: https://github.com/nobl9/nobl9-language-server/releases/download
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "yarn"
+      - name: Install dependencies
+        run: yarn install --immutable
       - name: Install nobl9-language-server (Linux)
         if: runner.os == 'Linux'
         run: |
-          VERSION=${{ steps.get_version.outputs.version }}
+          VERSION=${{ needs.get-version.outputs.version }}
           curl -fsSL -o nobl9-language-server "${NOBL9_LS_BASE_URL}/v${VERSION}/nobl9-language-server-${VERSION}-linux-amd64"
           chmod +x nobl9-language-server
           sudo mv nobl9-language-server /usr/local/bin/
       - name: Install nobl9-language-server (macOS)
         if: runner.os == 'macOS'
         run: |
-          VERSION=${{ steps.get_version.outputs.version }}
+          VERSION=${{ needs.get-version.outputs.version }}
           curl -fsSL -o nobl9-language-server "${NOBL9_LS_BASE_URL}/v${VERSION}/nobl9-language-server-${VERSION}-darwin-amd64"
           chmod +x nobl9-language-server
           sudo mv nobl9-language-server /usr/local/bin/
       - name: Install nobl9-language-server (Windows)
         if: runner.os == 'Windows'
         run: |
-          $version = "${{ steps.get_version.outputs.version }}"
+          $version = "${{ needs.get-version.outputs.version }}"
           $url = "$env:NOBL9_LS_BASE_URL/v$version/nobl9-language-server-$version-windows-amd64.exe"
           $out = "$env:USERPROFILE\.cargo\bin\nobl9-language-server.exe"
           Invoke-WebRequest -Uri $url -OutFile $out
           echo "$env:USERPROFILE\.cargo\bin" | Out-File -Append -FilePath $env:GITHUB_PATH
-      - name: Run tests
+      # xvfb-run is only available on Linux out of the box.
+      - name: Run tests (Linux)
+        if: runner.os == 'Linux'
+        run: xvfb-run yarn run test
+        env:
+          NOBL9_LANGUAGE_SERVER_CLIENT_ID: ${{ vars.NOBL9_LANGUAGE_SERVER_CLIENT_ID }}
+          NOBL9_LANGUAGE_SERVER_CLIENT_SECRET: ${{ secrets.NOBL9_LANGUAGE_SERVER_CLIENT_SECRET }}
+      - name: Run tests (Winodws and macOS)
+        if: runner.os != 'Linux'
         uses: coactions/setup-xvfb@v1
         env:
           NOBL9_LANGUAGE_SERVER_CLIENT_ID: ${{ vars.NOBL9_LANGUAGE_SERVER_CLIENT_ID }}
           NOBL9_LANGUAGE_SERVER_CLIENT_SECRET: ${{ secrets.NOBL9_LANGUAGE_SERVER_CLIENT_SECRET }}
         with:
           run: yarn run test
+

@@ -5,5 +5,4 @@ export default defineConfig({
 	mocha: {
 		timeout: 10000,
 	},
-	skipExtensionDependencies: true,
 });
