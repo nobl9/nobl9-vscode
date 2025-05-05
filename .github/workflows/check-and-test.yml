@@ -86,6 +86,9 @@ jobs:
       - name: Run tests (Linux)
         if: runner.os == 'Linux'
         run: xvfb-run yarn run test
+        env:
+          NOBL9_LANGUAGE_SERVER_CLIENT_ID: ${{ vars.NOBL9_LANGUAGE_SERVER_CLIENT_ID }}
+          NOBL9_LANGUAGE_SERVER_CLIENT_SECRET: ${{ secrets.NOBL9_LANGUAGE_SERVER_CLIENT_SECRET }}
       - name: Run tests (Winodws and macOS)
         if: runner.os != 'Linux'
         uses: coactions/setup-xvfb@v1
