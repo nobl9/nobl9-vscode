@@ -20,39 +20,16 @@
   "rangeStrategy": "pin",
   "branchPrefix": "renovate_",
   "commitMessagePrefix": "chore:",
-  // This will run go mod tidy after each go.mod update.
-  "postUpdateOptions": ["gomodTidy"],
   // Groups:
   "packageRules": [
-    {
-      "matchManagers": ["gomod"],
-      "matchUpdateTypes": [
-        "minor",
-        "patch",
-      ],
-      "groupName": "minor and patch Golang dependencies",
-    },
     {
       "matchManagers": ["github-actions"],
       "addLabels": ["github-actions"],
     },
     {
-      "matchManagers": ["gomod"],
-      "addLabels": ["golang"],
-    },
-    {
       "matchManagers": ["npm"],
       "addLabels": ["javascript"],
     },
-  ],
-  // Custom version extraction from Makefile.
-  "regexManagers": [
-    {
-      "fileMatch": ["^Makefile$"],
-      "matchStrings": [
-        ".*renovate datasource=(?<datasource>.*?) depName=(?<depName>.*?)\\n.*?_VERSION\\s?:=\\s?(?<currentValue>.*)\\s"
-      ]
-    }
   ],
   "ignorePaths": [
     "**/vendor/**",
