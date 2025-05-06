@@ -21,6 +21,8 @@ jobs:
         run: npm version ${{ github.ref_name }} --no-git-tag-version --allow-same-version
       - name: Commit version change
         run: |
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --global user.name "${{ github.actor }}"
           git add package.json
           git commit -m "chore: bump version to ${{ github.ref_name }}"
           git push
