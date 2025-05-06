@@ -32,6 +32,21 @@ JS file under `./dist/extension.js`.
 This bundled file is than packaged by [vsce](https://github.com/microsoft/vscode-vsce)
 which is the VSCode extension manager.
 
+The result is a single file with `.vsix` extension,
+for instance: `nobl9-0.1.0.vsix`.
+
+To install a .vsix file in VS Code:
+
+1. Go to the Extensions view.
+2. Select Views and More Actions.
+3. Select Install from VSIX.
+
+From the command line:
+
+```bash
+code --install-extension nobl9-0.1.0.vsix
+```
+
 ## Pull requests
 
 [Pull request template](../.github/pull_request_template.md)
