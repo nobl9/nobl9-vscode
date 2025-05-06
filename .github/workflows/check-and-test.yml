@@ -82,19 +82,17 @@ jobs:
           $out = "$env:USERPROFILE\.cargo\bin\nobl9-language-server.exe"
           Invoke-WebRequest -Uri $url -OutFile $out
           echo "$env:USERPROFILE\.cargo\bin" | Out-File -Append -FilePath $env:GITHUB_PATH
-      # xvfb-run is only available on Linux out of the box.
+      # xvfb-run is required on Linux.
       - name: Run tests (Linux)
         if: runner.os == 'Linux'
-        run: xvfb-run yarn run test
+        run: xvfb-run -a yarn run test
         env:
           NOBL9_LANGUAGE_SERVER_CLIENT_ID: ${{ vars.NOBL9_LANGUAGE_SERVER_CLIENT_ID }}
           NOBL9_LANGUAGE_SERVER_CLIENT_SECRET: ${{ secrets.NOBL9_LANGUAGE_SERVER_CLIENT_SECRET }}
       - name: Run tests (Winodws and macOS)
         if: runner.os != 'Linux'
-        uses: coactions/setup-xvfb@v1
+        run: yarn run test
         env:
           NOBL9_LANGUAGE_SERVER_CLIENT_ID: ${{ vars.NOBL9_LANGUAGE_SERVER_CLIENT_ID }}
           NOBL9_LANGUAGE_SERVER_CLIENT_SECRET: ${{ secrets.NOBL9_LANGUAGE_SERVER_CLIENT_SECRET }}
-        with:
-          run: yarn run test
 
