@@ -27,7 +27,7 @@ jobs:
           cache: "yarn"
       - name: Install dependencies
         run: yarn install --immutable
-      - name: Run linter
+      - name: Run checks
         run: yarn run check
   get-version:
     name: Get latest nobl9-language-server version
