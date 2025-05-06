@@ -25,7 +25,7 @@ jobs:
           git config user.name "n9-machine-user"
           git add package.json
           git commit -m "chore: bump version to ${{ github.ref_name }}"
-          git push
+          git push origin HEAD:main
         env:
           GITHUB_TOKEN: ${{ secrets.NOBL9_VSCODE_VERSION_BUMP_TOKEN }}
       - name: Publish
