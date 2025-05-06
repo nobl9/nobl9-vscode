@@ -31,6 +31,11 @@ Nobl9 Language Server is currently in experimental stage, please report any bugs
 which are not directly related to the Visual Studio Code extension in the
 [Language Server's repository](https://github.com/nobl9/nobl9-language-server).
 
+When running the `Nobl9: Restart Language Server` command,
+an error will appear which is to be ignored:
+
+> Connection to server got closed. Server will not be restarted.
+
 # Changelog
 
 Refer to [Changelog](./CHANGELOG.md) for more details.

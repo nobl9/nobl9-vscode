@@ -1,4 +1,4 @@
-import { commands, ExtensionContext, languages, workspace } from 'vscode';
+import { commands, ExtensionContext, workspace } from 'vscode';
 
 import {
 	LanguageClient,
@@ -20,7 +20,7 @@ export async function activate(context: ExtensionContext) {
 	context.subscriptions.push(
 		commands.registerCommand(
 			extensionName + ".restartServer",
-			startLanguageClient
+			restartLanguageClient
 		)
 	);
 
@@ -44,6 +44,15 @@ interface LanguageServerConfiguration {
 	logFilePath: string;
 }
 
+async function restartLanguageClient() {
+	try {
+		await deactivate();
+	} catch {
+		// ignore error
+	}
+	await startLanguageClient();
+}
+
 async function startLanguageClient() {
 	client = await buildLanguageClient();
 	await client.start();
@@ -64,10 +73,10 @@ async function buildLanguageClient(): Promise<LanguageClient> {
 
 	const args = [];
 	if (config.languageServer.logLevel) {
-		args.push(`-logLevel=TRACE`);
+		args.push(`-logLevel=${config.languageServer.logLevel}`);
 	}
 	if (config.languageServer.logFilePath) {
-		args.push(`-logFilePath=/home/mh/nobl9/nobl9-vscode/this.log`);
+		args.push(`-logFilePath=${config.languageServer.logFilePath}`);
 	}
 
 	// If the extension is launched in debug mode then the debug server options are used
@@ -87,7 +96,7 @@ async function buildLanguageClient(): Promise<LanguageClient> {
 			fileEvents: [
 				workspace.createFileSystemWatcher('**/*.?(e)y?(a)ml')
 			]
-		}
+		},
 	};
 
 	// Create the language client.
@@ -97,11 +106,6 @@ async function buildLanguageClient(): Promise<LanguageClient> {
 		serverOptions,
 		clientOptions
 	);
-
-	languages.setLanguageConfiguration('yaml', {
-		wordPattern: /("(?:[^\\"]*(?:\\.)?)*"?)|[^\s{}[\],:]+/
-	});
-
 	return client;
 }
 
