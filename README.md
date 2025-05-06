@@ -7,8 +7,9 @@
    </picture>
 </h1>
 
-Nobl9 Visual Stuido Code extension provides an integration with
-[Nobl9 Language Server](https://github.com/nobl9/nobl9-language-server).
+Nobl9 Visual Studio Code extension provides an integration with
+[Nobl9 Language Server](https://github.com/nobl9/nobl9-language-server),
+which provides features like auto completion, file diagnostics and documentation.
 
 # Requirements
 
@@ -26,7 +27,7 @@ This extension contributes the following settings:
 
 # Known Issues
 
-Nobl9 Language Server is currently in experimental stage, please report any bugs encountered
+Nobl9 Language Server is currently in experimental stage, please report any bugs encountered,
 which are not directly related to the Visual Studio Code extension in the
 [Language Server's repository](https://github.com/nobl9/nobl9-language-server).
 
