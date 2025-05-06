@@ -1418,7 +1418,7 @@ cspell-trie-lib@9.0.0:
     "@cspell/cspell-types" "9.0.0"
     gensequence "^7.0.0"
 
-cspell@^9.0.0:
+cspell@9.0.0:
   version "9.0.0"
   resolved "https://registry.yarnpkg.com/cspell/-/cspell-9.0.0.tgz#5bc720a3ad239fe12d1d03ee679acf49c42ef0f6"
   integrity sha512-z/HtX5DvLn7iixniOwzDqxpg0wL08obTdbZ2xj4aSZCcaJVIypFoli0FhiH0wHX2whiUTk0NTSp9X9eN7aoOKg==
@@ -2832,7 +2832,7 @@ markdown-it@14.1.0:
     punycode.js "^2.3.1"
     uc.micro "^2.1.0"
 
-markdownlint-cli@^0.44.0:
+markdownlint-cli@0.44.0:
   version "0.44.0"
   resolved "https://registry.yarnpkg.com/markdownlint-cli/-/markdownlint-cli-0.44.0.tgz#02b24c8a20972c50d124a6cafdeca3beb085a1ce"
   integrity sha512-ZJTAONlvF9NkrIBltCdW15DxN9UTbPiKMEqAh2EU2gwIFlrCMavyCEPPO121cqfYOrLUJWW8/XKWongstmmTeQ==
@@ -3315,7 +3315,7 @@ normalize-path@^3.0.0, normalize-path@~3.0.0:
   resolved "https://registry.yarnpkg.com/normalize-path/-/normalize-path-3.0.0.tgz#0dcd69ff23a1c9b11fd0978316644a0388216a65"
   integrity sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==
 
-npm-run-all@^4.1.5:
+npm-run-all@4.1.5:
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/npm-run-all/-/npm-run-all-4.1.5.tgz#04476202a15ee0e2e214080861bff12a51d98fba"
   integrity sha512-Oo82gJDAVcaMdi3nuoKFavkIHBRVqQ1qvMb+9LHk/cF4P6B2m8aP04hGf7oL6wZ9BuGwX1onlLhpuoofSyoQDQ==
