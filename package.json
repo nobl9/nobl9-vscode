@@ -70,6 +70,7 @@
     "watch:esbuild": "node esbuild.mjs --watch",
     "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
     "test": "vscode-test",
+    "pretest": "yarn run compile",
     "package": "vsce package",
     "vscode:prepublish": "yarn run bundle",
     "bundle": "yarn run check && node esbuild.mjs --production",
@@ -87,6 +88,8 @@
   },
   "devDependencies": {
     "@stylistic/eslint-plugin": "4.2.0",
+    "@types/node": "^22.15.12",
+    "@types/vscode": "^1.99.1",
     "@vscode/test-cli": "0.0.10",
     "@vscode/test-electron": "2.5.2",
     "@vscode/vsce": "3.3.2",
