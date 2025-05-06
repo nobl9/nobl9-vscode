@@ -25,7 +25,7 @@ jobs:
           git commit -m "chore: bump version to ${{ github.ref_name }}"
           git push
         env:
-          GITHUB_TOKEN: ${{ secrets.VERSION_BUMP_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.NOBL9_VSCODE_VERSION_BUMP_TOKEN }}
       - name: Publish
         run: yarn run publish
         env:
