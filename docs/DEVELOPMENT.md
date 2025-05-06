@@ -41,6 +41,8 @@ To install a .vsix file in VS Code:
 2. Select Views and More Actions.
 3. Select Install from VSIX.
 
+![image](../assets/install-from-vsix.png)
+
 From the command line:
 
 ```bash

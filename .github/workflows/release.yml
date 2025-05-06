@@ -1,0 +1,32 @@
+name: Release
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
+jobs:
+  release:
+    name: Publish to Marketplace
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "yarn"
+      - name: Install dependencies
+        run: yarn install --immutable
+      - name: Update version
+        run: npm version ${{ github.ref_name }} --no-git-tag-version --allow-same-version
+      - name: Commit version change
+        run: |
+          git add package.json
+          git commit -m "chore: bump version to ${{ github.ref_name }}"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.NOBL9_VSCODE_VERSION_BUMP_TOKEN }}
+      - name: Publish
+        run: yarn run publish
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}

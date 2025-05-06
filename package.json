@@ -3,7 +3,7 @@
   "displayName": "Nobl9",
   "description": "Provides Nobl9 Language Server integration.",
   "author": "Nobl9",
-  "license": "MIT",
+  "license": "MPL-2.0",
   "icon": "./assets/icon.png",
   "version": "0.1.0",
   "repository": {
@@ -11,17 +11,19 @@
     "url": "https://github.com/nobl9/nobl9-vscode"
   },
   "publisher": "Nobl9",
-  "categories": [],
+  "categories": [
+    "Linters"
+  ],
   "keywords": [
     "nobl9"
   ],
   "engines": {
-    "vscode": "1.99.3"
+    "vscode": "^1.98.0"
   },
   "activationEvents": [
     "onLanguage:yaml"
   ],
-  "files":[
+  "files": [
     "dist/extension.js",
     "package.json",
     "README.md",
@@ -68,6 +70,7 @@
     "watch:esbuild": "node esbuild.mjs --watch",
     "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
     "test": "vscode-test",
+    "pretest": "yarn run compile",
     "package": "vsce package",
     "vscode:prepublish": "yarn run bundle",
     "bundle": "yarn run check && node esbuild.mjs --production",
@@ -79,8 +82,14 @@
     "check:trailing-whitespaces": "node ./scripts/check-trailing-whitespaces.mjs",
     "format-cspell-config": "node ./scripts/format-cspell-config.mjs"
   },
+  "dependencies": {
+    "glob": "11.0.2",
+    "vscode-languageclient": "9.0.1"
+  },
   "devDependencies": {
     "@stylistic/eslint-plugin": "4.2.0",
+    "@types/node": "^22.15.12",
+    "@types/vscode": "^1.99.1",
     "@vscode/test-cli": "0.0.10",
     "@vscode/test-electron": "2.5.2",
     "@vscode/vsce": "3.3.2",
@@ -91,9 +100,5 @@
     "npm-run-all": "4.1.5",
     "typescript": "5.8.3",
     "typescript-eslint": "8.31.1"
-  },
-  "dependencies": {
-    "glob": "11.0.2",
-    "vscode-languageclient": "9.0.1"
   }
 }
