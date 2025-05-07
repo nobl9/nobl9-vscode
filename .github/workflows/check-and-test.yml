@@ -35,7 +35,6 @@ jobs:
           VERSION=$(curl -fsSL https://api.github.com/repos/nobl9/nobl9-language-server/releases/latest | jq -r .tag_name | sed 's/^v//')
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
   test:
-    name: Run tests
     needs: [check, get-version]
     uses: ./.github/workflows/test.yml
     with:
