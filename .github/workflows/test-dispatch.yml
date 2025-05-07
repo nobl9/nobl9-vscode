@@ -1,0 +1,13 @@
+name: Test dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      languageServerVersion:
+        description: Version of the nobl9-language-server to use in the tests
+        type: string
+        required: true
+jobs:
+  test:
+    uses: ./.github/workflows/test.yml
+    with:
+      languageServerVersion: ${{ inputs.languageServerVersion }}
