@@ -54,7 +54,7 @@ jobs:
         env:
           NOBL9_LANGUAGE_SERVER_CLIENT_ID: ${{ vars.NOBL9_LANGUAGE_SERVER_CLIENT_ID }}
           NOBL9_LANGUAGE_SERVER_CLIENT_SECRET: ${{ secrets.NOBL9_LANGUAGE_SERVER_CLIENT_SECRET }}
-      - name: Run tests (Winodws and macOS)
+      - name: Run tests (Windows and macOS)
         if: runner.os != 'Linux'
         run: yarn run test
         env:
