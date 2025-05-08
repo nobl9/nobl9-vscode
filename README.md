@@ -5,13 +5,13 @@ Nobl9 Visual Studio Code extension provides an integration with
 which provides features like auto completion,
 file diagnostics and documentation.
 
-# Requirements
+## Requirements
 
 [Nobl9 language server](https://github.com/nobl9/nobl9-language-server)
 executable has to be installed and either available in the path or
 specified via `nobl9.languageServerPath`.
 
-# Extension Settings
+## Extension Settings
 
 This extension contributes the following settings:
 
@@ -22,7 +22,7 @@ This extension contributes the following settings:
 * `nobl9.languageServer.logFilePath`: Specify log file path for the
   Nobl9 Language Server to save the logs in.
 
-# Known Issues
+## Known Issues
 
 Nobl9 Language Server is currently in experimental stage,
 please report any bugs encountered,
@@ -34,6 +34,6 @@ an error will appear which is to be ignored:
 
 > Connection to server got closed. Server will not be restarted.
 
-# Changelog
+## Changelog
 
 Refer to [Changelog](./CHANGELOG.md) for more details.
