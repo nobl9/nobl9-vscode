@@ -14,7 +14,7 @@ specified via `nobl9.languageServerPath`.
 ### VSCode configuration
 
 In order to enable full auto-completion capabilities,
-turn on `quickSuggestions` strings support on.
+turn on `quickSuggestions` strings support.
 
 ```json [settings.json]
 "editor.quickSuggestions": {
