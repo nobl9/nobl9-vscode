@@ -20,6 +20,8 @@
   "rangeStrategy": "pin",
   "branchPrefix": "renovate_",
   "commitMessagePrefix": "chore:",
+  // Pinned due to version support.
+  "ignoreDeps": ["vscode", "@types/vscode"],
   // Groups:
   "packageRules": [
     {
@@ -29,7 +31,7 @@
     {
       "matchManagers": ["npm"],
       "addLabels": ["javascript"],
-    },
+    }
   ],
   "ignorePaths": [
     "**/vendor/**",

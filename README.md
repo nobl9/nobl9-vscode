@@ -11,6 +11,17 @@ file diagnostics and documentation.
 executable has to be installed and either available in the path or
 specified via `nobl9.languageServerPath`.
 
+### VSCode configuration
+
+In order to enable full auto-completion capabilities,
+turn on `quickSuggestions` strings support.
+
+```json [settings.json]
+"editor.quickSuggestions": {
+  "strings": "on"
+}
+```
+
 ## Extension Settings
 
 This extension contributes the following settings:
