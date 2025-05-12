@@ -18,7 +18,7 @@
     "nobl9"
   ],
   "engines": {
-    "vscode": "1.100.0"
+    "vscode": "^1.98.0"
   },
   "activationEvents": [
     "onLanguage:yaml"
@@ -89,7 +89,7 @@
   "devDependencies": {
     "@stylistic/eslint-plugin": "4.2.0",
     "@types/node": "22.15.17",
-    "@types/vscode": "1.100.0",
+    "@types/vscode": "^1.98.0",
     "@vscode/test-cli": "0.0.10",
     "@vscode/test-electron": "2.5.2",
     "@vscode/vsce": "3.3.2",
