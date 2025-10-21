@@ -87,7 +87,7 @@
     "vscode-languageclient": "9.0.1"
   },
   "devDependencies": {
-    "@stylistic/eslint-plugin": "5.4.0",
+    "@stylistic/eslint-plugin": "5.5.0",
     "@types/node": "22.18.12",
     "@types/vscode": "^1.98.0",
     "@vscode/test-cli": "0.0.12",
