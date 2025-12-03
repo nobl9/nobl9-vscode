@@ -83,7 +83,7 @@
     "format-cspell-config": "node ./scripts/format-cspell-config.mjs"
   },
   "dependencies": {
-    "glob": "11.1.0",
+    "glob": "13.0.0",
     "vscode-languageclient": "9.0.1"
   },
   "devDependencies": {
