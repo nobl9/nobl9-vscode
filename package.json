@@ -5,7 +5,7 @@
   "author": "Nobl9",
   "license": "MPL-2.0",
   "icon": "./assets/icon.png",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "repository": {
     "type": "git",
     "url": "https://github.com/nobl9/nobl9-vscode"
@@ -83,28 +83,22 @@
     "format-cspell-config": "node ./scripts/format-cspell-config.mjs"
   },
   "dependencies": {
-    "glob": "11.1.0",
+    "glob": "13.0.0",
     "vscode-languageclient": "9.0.1"
   },
-  "resolutions": {
-    "glob": "^11.1.0",
-    "qs": "^6.14.1",
-    "jws": "^3.2.3",
-    "js-yaml": "^4.1.1"
-  },
   "devDependencies": {
-    "@stylistic/eslint-plugin": "5.4.0",
-    "@types/node": "22.18.8",
+    "@stylistic/eslint-plugin": "5.6.1",
+    "@types/node": "22.19.3",
     "@types/vscode": "^1.98.0",
-    "@vscode/test-cli": "0.0.11",
+    "@vscode/test-cli": "0.0.12",
     "@vscode/test-electron": "2.5.2",
     "@vscode/vsce": "3.7.1",
-    "cspell": "9.2.1",
-    "esbuild": "0.25.10",
-    "eslint": "9.37.0",
-    "markdownlint-cli": "0.45.0",
+    "cspell": "9.4.0",
+    "esbuild": "0.27.2",
+    "eslint": "9.39.2",
+    "markdownlint-cli": "0.47.0",
     "npm-run-all": "4.1.5",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.46.0"
+    "typescript-eslint": "8.52.0"
   }
 }
