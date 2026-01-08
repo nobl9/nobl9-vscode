@@ -1,1 +1,1 @@
-{"root":["./src/envpath.ts","./src/extension.ts","./src/test/completion.test.ts","./src/test/diagnostics.test.ts","./src/test/helper.ts"],"version":"5.8.3"}
+{"root":["./src/envpath.ts","./src/extension.ts","./src/test/completion.test.ts","./src/test/diagnostics.test.ts","./src/test/helper.ts"],"version":"5.9.3"}
